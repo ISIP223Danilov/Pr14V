@@ -24,5 +24,53 @@ namespace Pr14V.Page
         {
             InitializeComponent();
         }
+        private void BtnEntry_Click(object sender, RoutedEventArgs e)
+        {
+            // Ищем пользователя в базе по логину и паролю
+            var user = App.Context.Users.FirstOrDefault(u => u.Username == TBoxLogin.Text && u.PasswordHash == PBoxPass.Password);
+
+            if (user != null)
+            {
+                App.CurrentUser = user; // Запоминаем, кто залогинился
+                MessageBox.Show("Вы успешно вошли!");
+                NavigationService.GoBack(); // Возвращаемся на главную
+            }
+            else
+            {
+                MessageBox.Show("Неверный логин или пароль!");
+            }
+        }
+
+        private void BtnReg_Click(object sender, RoutedEventArgs e)
+        {
+            // Простая регистрация
+            if (string.IsNullOrWhiteSpace(TBoxLogin.Text) || string.IsNullOrWhiteSpace(PBoxPass.Password))
+            {
+                MessageBox.Show("Заполните поля!");
+                return;
+            }
+
+            var newUser = new Users
+            {
+                Username = TBoxLogin.Text,
+                PasswordHash = PBoxPass.Password,
+                CreatedAt = DateTime.Now
+            };
+
+            App.Context.Users.Add(newUser);
+            App.Context.SaveChanges();
+
+            MessageBox.Show("Регистрация успешна! Теперь нажмите Войти.");
+        }
+        // Добавь это в файл Reg.xaml.cs
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack(); // Возвращаемся на предыдущую страницу (MainPage)
+            }
+        }
+
     }
+
 }

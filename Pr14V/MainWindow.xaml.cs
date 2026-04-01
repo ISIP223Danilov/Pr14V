@@ -23,6 +23,7 @@ namespace Pr14V
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new Pr14V.Page.MainPage());
         }
     }
 }

@@ -9,6 +9,20 @@
       Title="Reg">
 
     <Grid>
-        
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300">
+            <TextBlock Text="Регистрация / Вход" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,20" />
+
+            <TextBlock Text="Логин:" Margin="0,5" />
+            <TextBox x:Name="TBoxLogin" Height="30" VerticalContentAlignment="Center" />
+
+            <TextBlock Text="Пароль:" Margin="0,10,0,5" />
+            <PasswordBox x:Name="PBoxPass" Height="30" VerticalContentAlignment="Center" />
+
+            <Button x:Name="BtnEntry" Content="Войти / Зарегистрироваться" Height="35" Margin="0,20" 
+            Click="BtnEntry_Click" Background="#007ACC" Foreground="White" />
+
+            <Button x:Name="BtnBack" Content="Назад" Click="BtnBack_Click" Background="Transparent" BorderThickness="0" />
+        </StackPanel>
+
     </Grid>
 </Page>
