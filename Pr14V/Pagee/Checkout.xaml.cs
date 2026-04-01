@@ -18,7 +18,7 @@ namespace Pr14V.Page
     /// <summary>
     /// Логика взаимодействия для Checkout.xaml
     /// </summary>
-    public partial class Checkout : Page
+    public partial class Checkout : System.Windows.Controls.Page
     {
         public Checkout()
         {

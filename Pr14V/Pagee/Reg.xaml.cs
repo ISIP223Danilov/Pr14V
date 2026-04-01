@@ -18,7 +18,7 @@ namespace Pr14V.Page
     /// <summary>
     /// Логика взаимодействия для Reg.xaml
     /// </summary>
-    public partial class Reg : Page
+    public partial class Reg : System.Windows.Controls.Page
     {
         public Reg()
         {

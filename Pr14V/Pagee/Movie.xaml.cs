@@ -18,7 +18,7 @@ namespace Pr14V.Page
     /// <summary>
     /// Логика взаимодействия для Movie.xaml
     /// </summary>
-    public partial class Movie : Page
+    public partial class Movie : System.Windows.Controls.Page
     {
         public Movie()
         {

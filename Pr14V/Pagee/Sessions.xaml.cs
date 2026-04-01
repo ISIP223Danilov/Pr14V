@@ -18,7 +18,7 @@ namespace Pr14V.Page
     /// <summary>
     /// Логика взаимодействия для Sessions.xaml
     /// </summary>
-    public partial class Sessions : Page
+    public partial class Sessions : System.Windows.Controls.Page
     {
         public Sessions()
         {

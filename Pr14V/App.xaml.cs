@@ -8,10 +8,11 @@ using System.Windows;
 
 namespace Pr14V
 {
-    /// <summary>
-    /// Логика взаимодействия для App.xaml
-    /// </summary>
     public partial class App : Application
     {
+        
+        public static CinemaDBEntities Context = new CinemaDBEntities();
+        
+        public static Users CurrentUser = null;
     }
 }
