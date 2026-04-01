@@ -28,6 +28,7 @@ namespace Pr14V.Page
 
             // Заполняем инфо (проверь имена полей Halls и Name в своей модели)
             TxtInfo.Text = $"Зал: {screening.Halls.Name} | Мест в зале: {screening.Halls.SeatsCount}";
+            TxtInfo.Text = $"Дата: {_screening.ShowDateTime:dd.MM.yyyy HH:mm}";
 
             GenerateSeats();
         }
@@ -46,12 +47,12 @@ namespace Pr14V.Page
                     Content = i,
                     Width = 40,
                     Height = 40,
-                    Margin = new Thickness(5) // ОШИБКА CS0029 ИСПРАВЛЕНА: используем Thickness вместо int
+                    Margin = new Thickness(5) 
                 };
 
                 if (occupiedSeats.Contains(i))
                 {
-                    btn.Background = Brushes.Red; // Занято
+                    btn.Background = Brushes.Red; 
                     btn.IsEnabled = false;
                 }
                 else
@@ -66,7 +67,7 @@ namespace Pr14V.Page
             }
         }
 
-        // ОШИБКА CS1061 ИСПРАВЛЕНА: Метод теперь существует
+       
         private void BtnCheckout_Click(object sender, RoutedEventArgs e)
         {
             if (_selectedSeat == null)
@@ -75,10 +76,7 @@ namespace Pr14V.Page
                 return;
             }
 
-            // ОШИБКА CS0246: Если CheckoutPage еще нет, создай её или пока закомментируй переход
-            // NavigationService.Navigate(new CheckoutPage(_screening, (int)_selectedSeat));
-
-            // Пока можем просто выводить результат для проверки:
+            
             MessageBox.Show($"Переходим к оформлению: Сеанс {_screening.ScreeningId}, Место {_selectedSeat}");
         }
     }

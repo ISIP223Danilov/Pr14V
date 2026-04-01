@@ -74,14 +74,14 @@ namespace Pr14V.Page
 
         private void LBoxMovies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            // Проверяем, что выбран именно фильм
-            if (LBoxMovies.SelectedItem is Movies selectedMovie)
+            if (LBoxMovies.SelectedItem is Movies selectedMovie) // Проверь имя класса (Movies или Movie)
             {
-                // Эту страницу (MoviePage) мы создадим следующей
-                // NavigationService.Navigate(new MoviePage(selectedMovie));
+                // Переходим на страницу фильма и ПЕРЕДАЕМ объект фильма
+                NavigationService.Navigate(new MoviePage(selectedMovie));
             }
         }
-      
+
+
 
     }
 }

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Pr14V; 
+
 
 namespace Pr14V.Page
 {
@@ -24,20 +26,23 @@ namespace Pr14V.Page
         {
             InitializeComponent();
         }
+
         private void BtnEntry_Click(object sender, RoutedEventArgs e)
         {
-            // Ищем пользователя в базе по логину и паролю
             var user = App.Context.Users.FirstOrDefault(u => u.Username == TBoxLogin.Text && u.PasswordHash == PBoxPass.Password);
 
             if (user != null)
             {
-                App.CurrentUser = user; // Запоминаем, кто залогинился
-                MessageBox.Show("Вы успешно вошли!");
-                NavigationService.GoBack(); // Возвращаемся на главную
+                App.CurrentUser = user;
+                MessageBox.Show("Успешный вход!");
+
+
+                NavigationService.Navigate(new Pagee.Profile());
+
             }
             else
             {
-                MessageBox.Show("Неверный логин или пароль!");
+                MessageBox.Show("Неверные данные!");
             }
         }
 

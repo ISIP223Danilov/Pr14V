@@ -28,7 +28,7 @@
                         <DataTemplate>
                             <Border BorderBrush="LightGray" BorderThickness="1" Padding="10" Margin="5">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding StartTime, StringFormat='{}{0:dd.MM HH:mm}'}" Width="100" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding ShowDateTime, StringFormat='{}{0:dd.MM HH:mm}'}" Width="100" FontWeight="Bold" />
                                     <TextBlock Text="{Binding Halls.Name}" Width="150" />
                                     <TextBlock Text="{Binding Halls.Classification}" Foreground="Gray" />
                                 </StackPanel>
