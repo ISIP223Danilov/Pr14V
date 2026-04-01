@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="040387674ddb42baaa89a0219c105102" Name="Diagram1">
+        <EntityTypeShape EntityType="CinemaDBModel.Genres" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBModel.Halls" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBModel.Movies" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBModel.Screenings" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBModel.Tickets" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBModel.Users" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="CinemaDBModel.FK__Screening__HallI__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaDBModel.FK__Screening__Movie__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaDBModel.FK__Tickets__Screeni__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaDBModel.FK__Tickets__UserId__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaDBModel.MovieGenres" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

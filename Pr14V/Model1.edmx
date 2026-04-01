@@ -1,0 +1,488 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище CinemaDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="GenreId" />
+          </Key>
+          <Property Name="GenreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Halls">
+          <Key>
+            <PropertyRef Name="HallId" />
+          </Key>
+          <Property Name="HallId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Classification" Type="nvarchar" MaxLength="50" />
+          <Property Name="SeatsCount" Type="int" />
+        </EntityType>
+        <EntityType Name="MovieGenres">
+          <Key>
+            <PropertyRef Name="MovieId" />
+            <PropertyRef Name="GenreId" />
+          </Key>
+          <Property Name="MovieId" Type="int" Nullable="false" />
+          <Property Name="GenreId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Movies">
+          <Key>
+            <PropertyRef Name="MovieId" />
+          </Key>
+          <Property Name="MovieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PosterPath" Type="nvarchar" MaxLength="500" />
+          <Property Name="Rating" Type="decimal" Precision="3" Scale="1" />
+          <Property Name="StartShowDate" Type="date" />
+          <Property Name="AgeRating" Type="nvarchar" MaxLength="10" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Screenings">
+          <Key>
+            <PropertyRef Name="ScreeningId" />
+          </Key>
+          <Property Name="ScreeningId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MovieId" Type="int" Nullable="false" />
+          <Property Name="HallId" Type="int" Nullable="false" />
+          <Property Name="ShowDateTime" Type="datetime" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="TicketId" />
+          </Key>
+          <Property Name="TicketId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScreeningId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="SeatNumber" Type="int" Nullable="false" />
+          <Property Name="PurchasedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsAdmin" Type="bit" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__MovieGenr__Genre__5CD6CB2B">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="1" />
+          <End Role="MovieGenres" Type="Self.MovieGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="GenreId" />
+            </Principal>
+            <Dependent Role="MovieGenres">
+              <PropertyRef Name="GenreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MovieGenr__Movie__5DCAEF64">
+          <End Role="Movies" Type="Self.Movies" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MovieGenres" Type="Self.MovieGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="MovieId" />
+            </Principal>
+            <Dependent Role="MovieGenres">
+              <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Screening__HallI__5EBF139D">
+          <End Role="Halls" Type="Self.Halls" Multiplicity="1" />
+          <End Role="Screenings" Type="Self.Screenings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Halls">
+              <PropertyRef Name="HallId" />
+            </Principal>
+            <Dependent Role="Screenings">
+              <PropertyRef Name="HallId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Screening__Movie__5FB337D6">
+          <End Role="Movies" Type="Self.Movies" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Screenings" Type="Self.Screenings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="MovieId" />
+            </Principal>
+            <Dependent Role="Screenings">
+              <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tickets__Screeni__60A75C0F">
+          <End Role="Screenings" Type="Self.Screenings" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Screenings">
+              <PropertyRef Name="ScreeningId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="ScreeningId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tickets__UserId__619B8048">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище CinemaDBModelContainer">
+          <EntitySet Name="Genres" EntityType="Self.Genres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Halls" EntityType="Self.Halls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MovieGenres" EntityType="Self.MovieGenres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Screenings" EntityType="Self.Screenings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__MovieGenr__Genre__5CD6CB2B" Association="Self.FK__MovieGenr__Genre__5CD6CB2B">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="MovieGenres" EntitySet="MovieGenres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MovieGenr__Movie__5DCAEF64" Association="Self.FK__MovieGenr__Movie__5DCAEF64">
+            <End Role="Movies" EntitySet="Movies" />
+            <End Role="MovieGenres" EntitySet="MovieGenres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Screening__HallI__5EBF139D" Association="Self.FK__Screening__HallI__5EBF139D">
+            <End Role="Halls" EntitySet="Halls" />
+            <End Role="Screenings" EntitySet="Screenings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Screening__Movie__5FB337D6" Association="Self.FK__Screening__Movie__5FB337D6">
+            <End Role="Movies" EntitySet="Movies" />
+            <End Role="Screenings" EntitySet="Screenings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tickets__Screeni__60A75C0F" Association="Self.FK__Tickets__Screeni__60A75C0F">
+            <End Role="Screenings" EntitySet="Screenings" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tickets__UserId__619B8048" Association="Self.FK__Tickets__UserId__619B8048">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CinemaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="GenreId" />
+          </Key>
+          <Property Name="GenreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Movies" Relationship="Self.MovieGenres" FromRole="Genres" ToRole="Movies" />
+        </EntityType>
+        <EntityType Name="Halls">
+          <Key>
+            <PropertyRef Name="HallId" />
+          </Key>
+          <Property Name="HallId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Classification" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SeatsCount" Type="Int32" />
+          <NavigationProperty Name="Screenings" Relationship="Self.FK__Screening__HallI__5EBF139D" FromRole="Halls" ToRole="Screenings" />
+        </EntityType>
+        <EntityType Name="Movies">
+          <Key>
+            <PropertyRef Name="MovieId" />
+          </Key>
+          <Property Name="MovieId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PosterPath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="Decimal" Precision="3" Scale="1" />
+          <Property Name="StartShowDate" Type="DateTime" Precision="0" />
+          <Property Name="AgeRating" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Screenings" Relationship="Self.FK__Screening__Movie__5FB337D6" FromRole="Movies" ToRole="Screenings" />
+          <NavigationProperty Name="Genres" Relationship="Self.MovieGenres" FromRole="Movies" ToRole="Genres" />
+        </EntityType>
+        <EntityType Name="Screenings">
+          <Key>
+            <PropertyRef Name="ScreeningId" />
+          </Key>
+          <Property Name="ScreeningId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MovieId" Type="Int32" Nullable="false" />
+          <Property Name="HallId" Type="Int32" Nullable="false" />
+          <Property Name="ShowDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Halls" Relationship="Self.FK__Screening__HallI__5EBF139D" FromRole="Screenings" ToRole="Halls" />
+          <NavigationProperty Name="Movies" Relationship="Self.FK__Screening__Movie__5FB337D6" FromRole="Screenings" ToRole="Movies" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK__Tickets__Screeni__60A75C0F" FromRole="Screenings" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="TicketId" />
+          </Key>
+          <Property Name="TicketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ScreeningId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="SeatNumber" Type="Int32" Nullable="false" />
+          <Property Name="PurchasedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Screenings" Relationship="Self.FK__Tickets__Screeni__60A75C0F" FromRole="Tickets" ToRole="Screenings" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Tickets__UserId__619B8048" FromRole="Tickets" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsAdmin" Type="Boolean" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK__Tickets__UserId__619B8048" FromRole="Users" ToRole="Tickets" />
+        </EntityType>
+        <Association Name="FK__Screening__HallI__5EBF139D">
+          <End Role="Halls" Type="Self.Halls" Multiplicity="1" />
+          <End Role="Screenings" Type="Self.Screenings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Halls">
+              <PropertyRef Name="HallId" />
+            </Principal>
+            <Dependent Role="Screenings">
+              <PropertyRef Name="HallId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Screening__Movie__5FB337D6">
+          <End Role="Movies" Type="Self.Movies" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Screenings" Type="Self.Screenings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="MovieId" />
+            </Principal>
+            <Dependent Role="Screenings">
+              <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tickets__Screeni__60A75C0F">
+          <End Role="Screenings" Type="Self.Screenings" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Screenings">
+              <PropertyRef Name="ScreeningId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="ScreeningId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tickets__UserId__619B8048">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MovieGenres">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="*" />
+          <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="CinemaDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Genres" EntityType="Self.Genres" />
+          <EntitySet Name="Halls" EntityType="Self.Halls" />
+          <EntitySet Name="Movies" EntityType="Self.Movies" />
+          <EntitySet Name="Screenings" EntityType="Self.Screenings" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Tickets" EntityType="Self.Tickets" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK__Screening__HallI__5EBF139D" Association="Self.FK__Screening__HallI__5EBF139D">
+            <End Role="Halls" EntitySet="Halls" />
+            <End Role="Screenings" EntitySet="Screenings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Screening__Movie__5FB337D6" Association="Self.FK__Screening__Movie__5FB337D6">
+            <End Role="Movies" EntitySet="Movies" />
+            <End Role="Screenings" EntitySet="Screenings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tickets__Screeni__60A75C0F" Association="Self.FK__Tickets__Screeni__60A75C0F">
+            <End Role="Screenings" EntitySet="Screenings" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tickets__UserId__619B8048" Association="Self.FK__Tickets__UserId__619B8048">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="MovieGenres" Association="Self.MovieGenres">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CinemaDBModelContainer" CdmEntityContainer="CinemaDBEntities">
+          <EntitySetMapping Name="Genres">
+            <EntityTypeMapping TypeName="CinemaDBModel.Genres">
+              <MappingFragment StoreEntitySet="Genres">
+                <ScalarProperty Name="GenreId" ColumnName="GenreId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Halls">
+            <EntityTypeMapping TypeName="CinemaDBModel.Halls">
+              <MappingFragment StoreEntitySet="Halls">
+                <ScalarProperty Name="HallId" ColumnName="HallId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Classification" ColumnName="Classification" />
+                <ScalarProperty Name="SeatsCount" ColumnName="SeatsCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movies">
+            <EntityTypeMapping TypeName="CinemaDBModel.Movies">
+              <MappingFragment StoreEntitySet="Movies">
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PosterPath" ColumnName="PosterPath" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="StartShowDate" ColumnName="StartShowDate" />
+                <ScalarProperty Name="AgeRating" ColumnName="AgeRating" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Screenings">
+            <EntityTypeMapping TypeName="CinemaDBModel.Screenings">
+              <MappingFragment StoreEntitySet="Screenings">
+                <ScalarProperty Name="ScreeningId" ColumnName="ScreeningId" />
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="HallId" ColumnName="HallId" />
+                <ScalarProperty Name="ShowDateTime" ColumnName="ShowDateTime" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CinemaDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tickets">
+            <EntityTypeMapping TypeName="CinemaDBModel.Tickets">
+              <MappingFragment StoreEntitySet="Tickets">
+                <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+                <ScalarProperty Name="ScreeningId" ColumnName="ScreeningId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="SeatNumber" ColumnName="SeatNumber" />
+                <ScalarProperty Name="PurchasedAt" ColumnName="PurchasedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CinemaDBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="MovieGenres" TypeName="CinemaDBModel.MovieGenres" StoreEntitySet="MovieGenres">
+            <EndProperty Name="Genres">
+              <ScalarProperty Name="GenreId" ColumnName="GenreId" />
+            </EndProperty>
+            <EndProperty Name="Movies">
+              <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
