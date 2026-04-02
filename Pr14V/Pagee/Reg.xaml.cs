@@ -27,21 +27,24 @@ namespace Pr14V.Page
 
         private void BtnEntry_Click(object sender, RoutedEventArgs e)
         {
+            // Ищем пользователя в базе
             var user = App.Context.Users.FirstOrDefault(u => u.Username == TBoxLogin.Text && u.PasswordHash == PBoxPass.Password);
 
             if (user != null)
             {
-                App.CurrentUser = user; // Сохраняем пользователя
-                MessageBox.Show("Успешный вход!");
+                App.CurrentUser = user; // ЗАПОМИНАЕМ пользователя
 
-                // Переходим на главную, чтобы купить билет
+                // ПРОВЕРКА: какой ID у него подтянулся?
+                MessageBox.Show($"Вход выполнен! Ваш ID в базе: {user.UserId}");
+
                 NavigationService.Navigate(new MainPage());
             }
             else
             {
-                MessageBox.Show("Неверные данные!");
+                MessageBox.Show("Неверный логин или пароль!");
             }
         }
+
 
         private void BtnReg_Click(object sender, RoutedEventArgs e)
         {

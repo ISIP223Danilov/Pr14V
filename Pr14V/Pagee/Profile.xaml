@@ -9,59 +9,63 @@
       Title="Profile">
 
     <Grid>
-        <Grid Margin="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <!-- Инфо об аккаунте -->
-                <RowDefinition Height="*" />
-                <!-- Список билетов -->
-                <RowDefinition Height="Auto" />
-                <!-- Кнопка назад -->
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-            <!-- Информация об аккаунте -->
-            <Border Grid.Row="0" Background="#F9F9F9" Padding="15" CornerRadius="10" Margin="0,0,0,20">
-                <StackPanel>
-                    <TextBlock Text="Личный кабинет" FontSize="24" FontWeight="Bold" Margin="0,0,0,10" />
-                    <TextBlock x:Name="TxtFullName" FontSize="18" FontWeight="SemiBold" />
-                    <TextBlock x:Name="TxtEmail" Foreground="Gray" />
-                    <TextBlock x:Name="TxtUsername" Margin="0,5,0,0" />
+        <!-- Информация об аккаунте -->
+        <Border Grid.Row="0" Background="#F9F9F9" Padding="15" CornerRadius="10" Margin="0,0,0,20">
+            <StackPanel>
+                <TextBlock Text="Личный кабинет" FontSize="24" FontWeight="Bold" Margin="0,0,0,10" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Пользователь: " FontSize="18" />
+                    <TextBlock x:Name="TxtUserDisplay" FontSize="18" FontWeight="SemiBold" Foreground="#007ACC" />
                 </StackPanel>
-            </Border>
+            </StackPanel>
+        </Border>
 
-            <!-- Список всех билетов -->
-            <StackPanel Grid.Row="1">
-                <TextBlock Text="Ваши билеты:" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" />
-                <ListBox x:Name="LBoxUserTickets" Height="300" BorderThickness="0">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10" CornerRadius="5">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel>
-                                        <!-- Привязка через навигационные свойства -->
-                                        <TextBlock Text="{Binding Screenings.Movies.Title}" FontWeight="Bold" FontSize="16" />
-                                        <TextBlock Text="{Binding Screenings.ShowDateTime, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" />
-                                        <TextBlock Text="{Binding Screenings.Halls.Name, StringFormat='Зал: {0}'}" />
+        <!-- Список билетов -->
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="Ваши купленные билеты:" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" />
+            <ListBox x:Name="LBoxUserTickets" Height="300" BorderThickness="0" HorizontalContentAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="LightGray" BorderThickness="1" Margin="0,5" Padding="15" CornerRadius="8" Background="White">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel>
+                                    <!-- Проверь: если в базе таблица Movies, то тут Screenings.Movies.Title -->
+                                    <TextBlock Text="{Binding Screenings.Movies.Title}" FontWeight="Bold" FontSize="18" Foreground="#333" />
+                                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                                        <TextBlock Text="{Binding Screenings.ScreeningDate, StringFormat='dd.MM.yyyy'}" Margin="0,0,10,0" />
+                                        <TextBlock Text="{Binding Screenings.StartTime}" FontWeight="SemiBold" />
                                     </StackPanel>
-                                    <TextBlock Grid.Column="1" Text="{Binding SeatNumber, StringFormat='Место: {0}'}" 
-                                       VerticalAlignment="Center" FontSize="18" Foreground="#007ACC" FontWeight="Bold" />
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </StackPanel>
+                                    <TextBlock Text="{Binding Screenings.Halls.Name, StringFormat='Зал: {0}'}" Foreground="Gray" />
+                                </StackPanel>
 
-            <!-- Кнопки управления -->
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-                <Button Content="Выйти из аккаунта" Click="BtnExit_Click" Margin="0,0,10,0" Width="150" Height="30" />
-                <Button Content="На главную" Click="BtnBack_Click" Width="120" Height="30" Background="#007ACC" Foreground="White" />
-            </StackPanel>
-        </Grid>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                    <TextBlock Text="{Binding SeatNumber, StringFormat='Место: {0}'}" FontSize="18" Foreground="#007ACC" FontWeight="Bold" />
+                                    <!-- Если цены нет в билете, можно привязать к цене сеанса: Screenings.Price -->
+                                    <TextBlock Text="{Binding Price, StringFormat='{}{0} руб.'}" FontSize="14" Margin="0,5,0,0" HorizontalAlignment="Right" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <!-- Кнопки управления -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="Выйти из аккаунта" Click="BtnExit_Click" Margin="0,0,10,0" Width="150" Height="35" Background="#FFE0E0" />
+            <Button Content="На главную" Click="BtnBack_Click" Width="120" Height="35" Background="#007ACC" Foreground="White" FontWeight="Bold" />
+        </StackPanel>
 
     </Grid>
 </Page>
