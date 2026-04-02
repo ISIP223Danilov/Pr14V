@@ -17,9 +17,7 @@ using Pr14V;
 
 namespace Pr14V.Page
 {
-    /// <summary>
-    /// Логика взаимодействия для Reg.xaml
-    /// </summary>
+    
     public partial class Reg : System.Windows.Controls.Page
     {
         public Reg()
@@ -33,12 +31,11 @@ namespace Pr14V.Page
 
             if (user != null)
             {
-                App.CurrentUser = user;
+                App.CurrentUser = user; // Сохраняем пользователя
                 MessageBox.Show("Успешный вход!");
 
-
-                NavigationService.Navigate(new Pagee.Profile());
-
+                // Переходим на главную, чтобы купить билет
+                NavigationService.Navigate(new MainPage());
             }
             else
             {
@@ -65,7 +62,10 @@ namespace Pr14V.Page
             App.Context.Users.Add(newUser);
             App.Context.SaveChanges();
 
-            MessageBox.Show("Регистрация успешна! Теперь нажмите Войти.");
+            App.CurrentUser = newUser; // Запоминаем нового пользователя в системе
+
+            MessageBox.Show("Регистрация успешна!");
+            NavigationService.Navigate(new MainPage()); // Сразу отправляем на главную
         }
         // Добавь это в файл Reg.xaml.cs
         private void BtnBack_Click(object sender, RoutedEventArgs e)
@@ -75,6 +75,7 @@ namespace Pr14V.Page
                 NavigationService.GoBack(); // Возвращаемся на предыдущую страницу (MainPage)
             }
         }
+
 
     }
 

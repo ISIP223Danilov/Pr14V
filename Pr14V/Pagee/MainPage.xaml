@@ -15,23 +15,35 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            
-            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10" VerticalAlignment="Center">
-                <TextBox x:Name="TBoxSearch" Width="250" Height="28" Margin="5" 
-                 VerticalContentAlignment="Center" TextChanged="TBoxSearch_TextChanged" />
 
-                <ComboBox x:Name="ComboSort" Width="180" Height="28" Margin="10,5" 
+            <Grid Grid.Row="0" Margin="10" VerticalAlignment="Center">
+               
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="80,0,0,0">
+                    <TextBox x:Name="TBoxSearch" 
+                 Width="188" Height="28" 
+                 VerticalContentAlignment="Center" 
+                 TextChanged="TBoxSearch_TextChanged" />
+
+                    <ComboBox x:Name="ComboSort" 
+                  Width="180" Height="28" Margin="10,0" 
                   SelectionChanged="ComboSort_SelectionChanged">
-                    <ComboBoxItem Content="Без сортировки" IsSelected="True" />
-                    <ComboBoxItem Content="По названию (А-Я)" />
-                    <ComboBoxItem Content="По рейтингу (сначала высокие)" />
-                </ComboBox>
+                        <ComboBoxItem Content="Без сортировки" IsSelected="True" />
+                        <ComboBoxItem Content="По названию (А-Я)" />
+                        <ComboBoxItem Content="По рейтингу (сначала высокие)" />
+                    </ComboBox>
+                </StackPanel>
 
-                <Button x:Name="BtnProfile" Content="Личный кабинет" Width="140" Height="28" 
-                Margin="50,5,5,5" Click="BtnProfile_Click" Background="#007ACC" Foreground="White" />
-            </StackPanel>
+                
+                <Button x:Name="BtnProfile" 
+            Content="Личный кабинет" 
+            Width="200" Height="28" 
+            HorizontalAlignment="Right" 
+            Click="BtnProfile_Click" 
+            Background="#007ACC" Foreground="White" />
+            </Grid>
 
-          
+
+
             <ListBox x:Name="LBoxMovies" Grid.Row="1" BorderThickness="0" Background="Transparent"
              ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
              MouseDoubleClick="LBoxMovies_MouseDoubleClick">

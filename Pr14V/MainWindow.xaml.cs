@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace Pr14V
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
+  
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -25,5 +23,17 @@ namespace Pr14V
             InitializeComponent();
             MainFrame.Navigate(new Pr14V.Page.MainPage());
         }
+        // По клику возвращаемся
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainFrame.CanGoBack) MainFrame.GoBack();
+        }
+
+        // Авто-скрытие кнопки на главной странице
+        private void MainFrame_ContentRendered(object sender, EventArgs e)
+        {
+            BtnBack.Visibility = MainFrame.CanGoBack ? Visibility.Visible : Visibility.Collapsed;
+        }
+
     }
 }

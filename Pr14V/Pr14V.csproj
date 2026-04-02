@@ -76,6 +76,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuthService.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Session.cs" />

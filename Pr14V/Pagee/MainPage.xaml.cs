@@ -68,9 +68,19 @@ namespace Pr14V.Page
 
         private void BtnProfile_Click(object sender, RoutedEventArgs e)
         {
-            // Переход на страницу регистрации (она у тебя называется Reg)
-            NavigationService.Navigate(new Reg());
+            // Проверяем: если в App.CurrentUser КТО-ТО ЕСТЬ (уже вошел или зарегился)
+            if (App.CurrentUser != null)
+            {
+                // Идем сразу на страницу профиля
+                NavigationService.Navigate(new Pagee.Profile());
+            }
+            else
+            {
+                // Если там пусто (null) — отправляем на регистрацию
+                NavigationService.Navigate(new Reg());
+            }
         }
+
 
         private void LBoxMovies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {

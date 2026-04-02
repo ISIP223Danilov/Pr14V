@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+        <Grid>
+
+            <Frame x:Name="MainFrame" 
+           NavigationUIVisibility="Hidden" />
+
+
+            <Button x:Name="BtnBack" 
+            Content="Назад" 
+            Click="BtnBack_Click" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Padding="1"
+            Visibility="Visible" Height="28" Margin="10,10,0,0" />
+        </Grid>
+
     </Grid>
 </Window>

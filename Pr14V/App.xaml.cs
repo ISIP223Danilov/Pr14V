@@ -9,10 +9,12 @@ using System.Windows;
 namespace Pr14V
 {
     public partial class App : Application
-    {
-        
-        public static CinemaDBEntities Context = new CinemaDBEntities();
-        
-        public static Users CurrentUser = null;
-    }
+{
+    // Сюда мы запишем данные пользователя после успешного входа
+    public static Users CurrentUser { get; set; }
+
+    // Контекст вашей БД (проверьте имя вашего класса сущностей)
+    public static CinemaDBEntities Context { get; } = new CinemaDBEntities();
+}
+
 }
