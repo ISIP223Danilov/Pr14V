@@ -37,6 +37,13 @@ namespace Pr14V.Page
 
             // 1. Получаем список фильмов из БД
             var currentMovies = _db.Movies.ToList();
+            foreach (var m in currentMovies)
+            {
+                // Проверяем название и подставляем путь к файлу из папки image
+                if (m.Title.Contains("Дюна")) m.PosterPath = "/image/daun.jpg";
+                else if (m.Title.Contains("Человек-паук")) m.PosterPath = "/image/payk.jpg";
+                else if (m.Title.Contains("Зеленая миля")) m.PosterPath = "/image/popneg.jpg";
+            }
 
             // 2. ПОИСК: фильтруем по тексту в TBoxSearch
             if (!string.IsNullOrWhiteSpace(TBoxSearch.Text))

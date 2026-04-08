@@ -24,27 +24,30 @@ namespace Pr14V.Page
         public MoviePage(Movies movie)
         {
             InitializeComponent();
+
+            // ВРЕМЕННЫЙ КОСТЫЛЬ: принудительно назначаем путь, если в базе пусто
+            if (movie.Title == "Человек-паук") movie.PosterPath = "/image/payk.jfif";
+            if (movie.Title == "Дюна") movie.PosterPath = "/image/daun.jfif";
+            if (movie.Title == "Поп") movie.PosterPath = "/image/popneg.jpg";
+
             _selectedMovie = movie;
+            this.DataContext = _selectedMovie; // Чтобы Binding в XAML заработал
 
-            // Заполняем данные фильма
+            // Остальной ваш код...
             TxtTitle.Text = _selectedMovie.Title;
-            TxtRating.Text = $"⭐ {_selectedMovie.Rating}";
-            TxtDesc.Text = _selectedMovie.Description;
 
-            // Загрузка фото
+            // Загрузка фото (тот самый код, который мы обсуждали)
             if (!string.IsNullOrEmpty(_selectedMovie.PosterPath))
             {
                 try
                 {
-                    ImgPoster.Source = new BitmapImage(new Uri(_selectedMovie.PosterPath, UriKind.RelativeOrAbsolute));
+                    ImgPoster.Source = new BitmapImage(new Uri(_selectedMovie.PosterPath, UriKind.Relative));
                 }
-                catch { /* Ошибка если путь неверный */ }
+                catch { }
             }
-
-            // Грузим сеансы именно для этого фильма
-            LBoxScreenings.ItemsSource = App.Context.Screenings
-                .Where(s => s.MovieId == _selectedMovie.MovieId).ToList();
         }
+        
+        
 
         private void LBoxScreenings_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

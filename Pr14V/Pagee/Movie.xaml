@@ -15,7 +15,12 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Image x:Name="ImgPoster" Stretch="Uniform" VerticalAlignment="Top" />
+            <Image x:Name="ImgPoster" 
+       Source="{Binding PosterPath}" 
+       Stretch="Uniform" 
+       VerticalAlignment="Top" 
+       Margin="0,0,10,0" />
+
 
             <StackPanel Grid.Column="1" Margin="20,0">
                 <TextBlock x:Name="TxtTitle" FontSize="28" FontWeight="Bold" TextWrapping="Wrap" />
