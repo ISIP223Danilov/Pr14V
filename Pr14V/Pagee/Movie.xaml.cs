@@ -26,8 +26,8 @@ namespace Pr14V.Page
             InitializeComponent();
 
             // ВРЕМЕННЫЙ КОСТЫЛЬ: принудительно назначаем путь, если в базе пусто
-            if (movie.Title == "Человек-паук") movie.PosterPath = "/image/payk.jfif";
-            if (movie.Title == "Дюна") movie.PosterPath = "/image/daun.jfif";
+            if (movie.Title == "Человек-паук") movie.PosterPath = "/image/payk.jpg";
+            if (movie.Title == "Дюна") movie.PosterPath = "/image/daun.jpg";
             if (movie.Title == "Поп") movie.PosterPath = "/image/popneg.jpg";
 
             _selectedMovie = movie;
